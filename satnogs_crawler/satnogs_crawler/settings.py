@@ -15,11 +15,12 @@ SPIDER_MODULES = ['satnogs_crawler.spiders']
 NEWSPIDER_MODULE = 'satnogs_crawler.spiders'
 
 
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'satnogs_crawler (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 FEED_URI = 'data/%(time)s.json'
 FEED_FORMAT = 'json'
