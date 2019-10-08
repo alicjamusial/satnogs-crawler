@@ -1,20 +1,19 @@
 import scrapy
+from scrapy.spiders import CrawlSpider, Rule
+from scrapy.linkextractors import LinkExtractor
 
+class SatnogsSpider(CrawlSpider):
+    name = "satnogs"
 
-class SatnogsSpider(scrapy.Spider):
-    name = "quotes"
+    allowed_domains = ["network.satnogs.org"]
+    start_urls = [
+        'https://network.satnogs.org/observations/?norad=44427'
+    ]
 
-    def start_requests(self):
-        urls = [
-            'http://quotes.toscrape.com/page/1/',
-            'http://quotes.toscrape.com/page/2/',
-        ]
-        for url in urls:
-            yield scrapy.Request(url=url, callback=self.parse)
+    rules = (
+        Rule(LinkExtractor(allow=(), restrict_css=('ul.pagination li:last-child',)),
+             callback="parse_item",
+             follow=True),)
 
-    def parse(self, response):
-        page = response.url.split("/")[-2]
-        filename = 'quotes-%s.html' % page
-        with open(filename, 'wb') as f:
-            f.write(response.body)
-        self.log('Saved file %s' % filename)
+    def parse_item(self, response):
+        print('Processing..' + response.url)
