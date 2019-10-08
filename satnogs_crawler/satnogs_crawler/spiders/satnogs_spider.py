@@ -10,20 +10,18 @@ class SatnogsSpider(CrawlSpider):
     name = "satnogs"
 
     def __init__(self, noradId=None, *args, **kwargs):
-        super(CrawlSpider, self).__init__(*args, **kwargs)
         if (noradId == None):
-            print("\nDefine a norad ID. Do it by using `scrapy crawl satnogs -a noradId=XXXXX` in console.")
+            print('\nDefine a norad ID. Do it by using `scrapy crawl satnogs -a noradId=XXXXX` in console.')
         else:
-            self.allowed_domains = ["network.satnogs.org"]
+            self.allowed_domains = ['network.satnogs.org']
             self.start_urls = [
                 'https://network.satnogs.org/observations/?norad=' + noradId
             ]
-
-
-    rules = (
-        Rule(LinkExtractor(allow=(), restrict_css=('ul.pagination li:last-child',)),
-             callback="parse_start_url",
-             follow=True),)
+            self.rules = (
+                Rule(LinkExtractor(allow=(), restrict_css=('ul.pagination li:last-child')),
+                     callback="parse_start_url",
+                     follow=True),)
+            super(SatnogsSpider, self).__init__(*args, **kwargs)
 
     def parse_start_url(self, response):
         item_links = response.css('.obs-link::attr(href)').extract()
