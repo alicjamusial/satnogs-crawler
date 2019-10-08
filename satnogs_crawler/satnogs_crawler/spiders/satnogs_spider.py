@@ -4,7 +4,8 @@ from scrapy.linkextractors import LinkExtractor
 from satnogs_crawler.items import SatnogsCrawlerItem
 
 def add_url_base(url):
-    return "https://network.satnogs.org" + url
+    # Old files URL's are changed to archived format - starting with proper 'http'
+    return url if url.startswith('http') else "https://network.satnogs.org" + url
 
 class SatnogsSpider(CrawlSpider):
     name = "satnogs"
