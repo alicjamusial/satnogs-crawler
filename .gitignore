@@ -2,3 +2,4 @@
 satnogs_crawler/satnogs_crawler/__pycache__/
 satnogs_crawler/satnogs_crawler/spiders/__pycache__/
 satnogs_crawler/data/
+satnogs_crawler/files/

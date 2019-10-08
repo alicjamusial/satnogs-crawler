@@ -9,10 +9,16 @@ def add_url_base(url):
 class SatnogsSpider(CrawlSpider):
     name = "satnogs"
 
-    allowed_domains = ["network.satnogs.org"]
-    start_urls = [
-        'https://network.satnogs.org/observations/?norad=44427'
-    ]
+    def __init__(self, noradId=None, *args, **kwargs):
+        super(CrawlSpider, self).__init__(*args, **kwargs)
+        if (noradId == None):
+            print("\nDefine a norad ID. Do it by using `scrapy crawl satnogs -a noradId=XXXXX` in console.")
+        else:
+            self.allowed_domains = ["network.satnogs.org"]
+            self.start_urls = [
+                'https://network.satnogs.org/observations/?norad=' + noradId
+            ]
+
 
     rules = (
         Rule(LinkExtractor(allow=(), restrict_css=('ul.pagination li:last-child',)),
