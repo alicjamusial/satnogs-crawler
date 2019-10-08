@@ -32,5 +32,5 @@ class SatnogsSpider(CrawlSpider):
         audioUrl = add_url_base(response.css('.front-line:last-child .front-data a::attr(href)').extract()[0])
         waterfallUrl = add_url_base(response.css('.front-line:last-child .front-data a::attr(href)').extract()[1])
 
-        item = SatnogsCrawlerItem(id=observationId, startDate=startDate, endDate=endDate, audioUrl=audioUrl, waterfallUrl=waterfallUrl, url=response.url)
+        item = SatnogsCrawlerItem(id=observationId, startDate=startDate, endDate=endDate, url=response.url, file_urls=[audioUrl, waterfallUrl])
         yield item

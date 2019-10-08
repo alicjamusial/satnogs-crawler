@@ -23,3 +23,6 @@ ROBOTSTXT_OBEY = True
 
 FEED_URI = 'data/%(time)s.json'
 FEED_FORMAT = 'json'
+
+ITEM_PIPELINES = {'satnogs_crawler.pipelines.SatnogsCrawlerPipeline': 1}
+FILES_STORE = 'files'
